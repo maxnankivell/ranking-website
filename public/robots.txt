@@ -1,0 +1,7 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Disallow: /add-data
+Disallow: /ranking
+Disallow: /comparisons
+
+Sitemap: https://objectiverankings.maxnankivell.com/sitemap.xml
