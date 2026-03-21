@@ -4,9 +4,9 @@ type ButtonSize = "small" | "medium" | "large";
 type ButtonVariant = "contained" | "outlined";
 
 const sizeClasses: Record<ButtonSize, string> = {
-  small: "h-3 px-5 text-sm",
-  medium: "py-4 px-8 text-base",
-  large: "h-6 px-12 text-lg",
+  small: "py-1 px-5 text-sm",
+  medium: "py-3 px-8 text-base",
+  large: "py-5 px-12 text-lg",
 };
 
 const variantClasses: Record<ButtonVariant, string> = {
