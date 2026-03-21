@@ -8,7 +8,11 @@ function isMethodDisabled(method: (typeof dataMethods)[number]): boolean {
   return method.disabled === true || method.label.includes("(Coming soon)");
 }
 
-export default function AddDataMethodTabs() {
+type AddDataMethodTabsProps = {
+  className?: string;
+};
+
+export default function AddDataMethodTabs({ className }: AddDataMethodTabsProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -28,7 +32,9 @@ export default function AddDataMethodTabs() {
     "Add Data";
 
   return (
-    <section className="flex w-full flex-col gap-6">
+    <section
+      className={["flex w-full flex-col gap-4", className].filter(Boolean).join(" ")}
+    >
       <div
         role="tablist"
         aria-label="Add data method tabs"
