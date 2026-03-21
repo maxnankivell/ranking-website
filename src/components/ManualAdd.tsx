@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useRankingData } from "../contexts/RankingDataContext";
 import Button from "./Button";
 
 export default function ManualAdd() {
   const { addItem } = useRankingData();
+  const titleInputRef = useRef<HTMLInputElement>(null);
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
 
@@ -21,6 +22,7 @@ export default function ManualAdd() {
 
     setTitle("");
     setImage("");
+    titleInputRef.current?.focus();
   }
 
   return (
@@ -32,6 +34,7 @@ export default function ManualAdd() {
           Title
         </label>
         <input
+          ref={titleInputRef}
           id="manual-title"
           type="text"
           required
