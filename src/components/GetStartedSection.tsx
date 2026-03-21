@@ -9,9 +9,13 @@ const demoOptions = [
   { value: "manual", label: "Manual Entry" },
   { value: "json", label: "JSON Import" },
   { value: "backloggd", label: "Backloggd" },
-  { value: "steam", label: "Steam (Coming soon)" },
-  { value: "boardgamegeek", label: "Board Game Geek (Coming soon)" },
-  { value: "spotify", label: "Spotify (Coming soon)" },
+  { value: "steam", label: "Steam (Coming soon)", disabled: true },
+  {
+    value: "boardgamegeek",
+    label: "Board Game Geek (Coming soon)",
+    disabled: true,
+  },
+  { value: "spotify", label: "Spotify (Coming soon)", disabled: true },
 ];
 
 export default function GetStartedSection() {
@@ -32,9 +36,7 @@ export default function GetStartedSection() {
         disabled={selected === null}
         onClick={() => {
           if (selected === null) return;
-          router.push(
-            `/add-data?method=${encodeURIComponent(selected)}`,
-          );
+          router.push(`/add-data?method=${encodeURIComponent(selected)}`);
         }}
       >
         Get Started
