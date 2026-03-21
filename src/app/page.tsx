@@ -1,3 +1,4 @@
+import ExternalLink from "../components/ExternalLink";
 import GetStartedSection from "../components/GetStartedSection";
 
 export default function Home() {
@@ -17,14 +18,9 @@ export default function Home() {
         integrations including: Backloggd, Steam (coming soon), Board Game Geek
         (coming soon) and Spotify (coming soon). If there are other services you
         want integrated feel free to open a{" "}
-        <a
-          href="https://github.com/maxnankivell/ranking-website/issues/new"
-          className="font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 hover:underline"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <ExternalLink href="https://github.com/maxnankivell/ranking-website/issues/new">
           feature request on GitHub
-        </a>{" "}
+        </ExternalLink>{" "}
         (you will need a Github account to do this sorry).
       </p>
       <GetStartedSection />

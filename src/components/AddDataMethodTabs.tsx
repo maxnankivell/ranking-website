@@ -3,6 +3,7 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { dataMethods } from "../constants/dataMethods";
+import ExternalLink from "./ExternalLink";
 
 function isMethodDisabled(method: (typeof dataMethods)[number]): boolean {
   return method.disabled === true || method.label.includes("(Coming soon)");
@@ -12,7 +13,9 @@ type AddDataMethodTabsProps = {
   className?: string;
 };
 
-export default function AddDataMethodTabs({ className }: AddDataMethodTabsProps) {
+export default function AddDataMethodTabs({
+  className,
+}: AddDataMethodTabsProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -33,7 +36,9 @@ export default function AddDataMethodTabs({ className }: AddDataMethodTabsProps)
 
   return (
     <section
-      className={["flex w-full flex-col gap-4", className].filter(Boolean).join(" ")}
+      className={["flex w-full flex-col gap-4", className]
+        .filter(Boolean)
+        .join(" ")}
     >
       <div
         role="tablist"
@@ -78,7 +83,23 @@ export default function AddDataMethodTabs({ className }: AddDataMethodTabsProps)
         {/* <h2 className="text-2xl font-bold text-heading">
           {selectedMethodLabel}
         </h2> */}
-        <p className="text-subheading">text about backloggd</p>
+        {selectedMethod === "backloggd" && (
+          <p className="max-w-3xl text-lg leading-8 mb-4 text-subheading">
+            Backloggd does not provide a public API for us to use so you will need
+            to use our data scraping tool to get your data and then use the json
+            upload utility. You can download the latest version for your operating
+            system from{" "}
+            <ExternalLink href="https://github.com/maxnankivell/backloggd-scraper/releases">
+              here
+            </ExternalLink>{" "}
+            there is an exe for windows and binaries for linux and macos. If you
+            need more information on how to use the tool, you can find it on the
+            readme page{" "}
+            <ExternalLink href="https://github.com/maxnankivell/backloggd-scraper?tab=readme-ov-file#install">
+              here
+            </ExternalLink>{" "}
+          </p>
+        )}
         <p className="text-body">upload</p>
         <p className="text-body">manual add</p>
       </div>
