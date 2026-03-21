@@ -1,4 +1,9 @@
+import type { Metadata } from "next";
 import { Press_Start_2P } from "next/font/google";
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 const pressStart2P = Press_Start_2P({
   weight: "400",
