@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Ubuntu_Mono } from "next/font/google";
 import colors from "tailwindcss/colors";
 import Header from "../components/Header";
+import Providers from "../components/Providers";
 import "./globals.css";
 
 const ubuntuMono = Ubuntu_Mono({
@@ -103,11 +104,13 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col">
         <Header />
-        <div className="flex flex-col flex-1 items-center bg-mist-100 dark:bg-black">
-          <div className="flex flex-1 w-full max-w-7xl py-16 px-16 bg-white dark:bg-mist-900">
-            {children}
+        <Providers>
+          <div className="flex flex-col flex-1 items-center bg-mist-100 dark:bg-black">
+            <div className="flex flex-1 w-full max-w-7xl py-16 px-16 bg-white dark:bg-mist-900">
+              {children}
+            </div>
           </div>
-        </div>
+        </Providers>
       </body>
     </html>
   );

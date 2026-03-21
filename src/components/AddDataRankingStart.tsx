@@ -10,7 +10,9 @@ type AddDataRankingStartProps = {
   className?: string;
 };
 
-export default function AddDataRankingStart({ className }: AddDataRankingStartProps) {
+export default function AddDataRankingStart({
+  className,
+}: AddDataRankingStartProps) {
   const router = useRouter();
   const [flow, setFlow] = useState<"comparison" | "ranking">("comparison");
   const [rankType, setRankType] = useState<"ordered" | "tierlist">("ordered");
@@ -20,12 +22,16 @@ export default function AddDataRankingStart({ className }: AddDataRankingStartPr
   return (
     <section
       className={[
-        "flex w-full flex-col gap-6 items-center sm:items-start",
+        "flex w-full flex-col gap-4 items-center sm:items-start",
         className,
       ]
         .filter(Boolean)
         .join(" ")}
     >
+      <h2 className="text-2xl font-bold text-subheading">
+        Choose your ranking flow
+      </h2>
+
       <div className="flex w-full flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center">
         <ToggleButton
           aria-label="Ranking flow"

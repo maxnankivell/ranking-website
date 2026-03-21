@@ -13,7 +13,7 @@ export default function AddData() {
         Add Your Data
       </h1>
       <p className="max-w-3xl text-lg leading-8 mb-8 text-subheading">
-        Enter your data and then choose what kind of ranking to make and how to
+        Enter your data, then choose what kind of ranking to make and how to
         make it.
       </p>
       <AddDataMethodTabs className="mb-8" />
