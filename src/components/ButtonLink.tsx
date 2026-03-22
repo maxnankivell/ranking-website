@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { ComponentProps } from "react";
 
 import {
@@ -7,28 +8,26 @@ import {
   type ButtonVariant,
 } from "./buttonStyles";
 
-export type ButtonProps = ComponentProps<"button"> & {
+export type ButtonLinkProps = ComponentProps<typeof Link> & {
   size?: ButtonSize;
   variant?: ButtonVariant;
   fullWidth?: boolean;
   error?: boolean;
 };
 
-export default function Button({
+export default function ButtonLink({
   size = "medium",
   variant = "contained",
   fullWidth = false,
   error = false,
   className,
-  type,
   ...props
-}: ButtonProps) {
+}: ButtonLinkProps) {
   const tone = error ? "error" : "default";
   return (
-    <button
-      type={type ?? "button"}
+    <Link
       className={[
-        "flex cursor-pointer items-center justify-center gap-2 rounded-full font-bold transition-colors disabled:cursor-not-allowed",
+        "inline-flex cursor-pointer items-center justify-center gap-2 rounded-full font-bold transition-colors",
         fullWidth ? "w-full max-w-none" : "max-w-40",
         buttonVariantClasses[variant][tone],
         buttonSizeClasses[size],

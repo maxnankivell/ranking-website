@@ -1,9 +1,13 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 
-import Button from "./Button";
+import {
+  parseRankingFlowParam,
+  parseRankingFormatParam,
+} from "../utils/queryStringUtilities";
+import ButtonLink from "./ButtonLink";
 import ToggleButton from "./ToggleButton";
 
 type AddDataRankingStartProps = {
@@ -13,9 +17,13 @@ type AddDataRankingStartProps = {
 export default function AddDataRankingStart({
   className,
 }: AddDataRankingStartProps) {
-  const router = useRouter();
-  const [flow, setFlow] = useState<"comparison" | "ranking">("comparison");
-  const [rankType, setRankType] = useState<"ordered" | "tierlist">("ordered");
+  const searchParams = useSearchParams();
+  const [flow, setFlow] = useState<"comparison" | "ranking">(() =>
+    parseRankingFlowParam(searchParams.get("rankingflow")),
+  );
+  const [format, setFormat] = useState<"ordered" | "tierlist">(() =>
+    parseRankingFormatParam(searchParams.get("rankingformat")),
+  );
 
   const path = flow === "comparison" ? "/comparisons" : "/ranking";
 
@@ -48,17 +56,13 @@ export default function AddDataRankingStart({
             { value: "ordered", label: "Ordered" },
             { value: "tierlist", label: "Tier List" },
           ]}
-          value={rankType}
-          onChange={(v) => setRankType(v as "ordered" | "tierlist")}
+          value={format}
+          onChange={(v) => setFormat(v as "ordered" | "tierlist")}
         />
       </div>
-      <Button
-        type="button"
-        variant="contained"
-        onClick={() => router.push(`${path}?type=${rankType}`)}
-      >
+      <ButtonLink href={`${path}?format=${format}`} variant="contained">
         Start
-      </Button>
+      </ButtonLink>
     </section>
   );
 }

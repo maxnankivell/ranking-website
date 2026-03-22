@@ -3,9 +3,12 @@
 import { CollisionPriority } from "@dnd-kit/abstract";
 import { move } from "@dnd-kit/helpers";
 import { DragDropProvider, useDroppable } from "@dnd-kit/react";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useRankingData } from "../contexts/RankingDataContext";
+import { parseRankingFormatParam } from "../utils/queryStringUtilities";
 import { deriveGroups, type Groups } from "../utils/rankingUtilities";
+import ButtonLink from "./ButtonLink";
 import SortableItemTile from "./SortableItemTile";
 
 type RankingBoardProps = {
@@ -140,7 +143,7 @@ function RankedZone({ children }: { children: React.ReactNode }) {
       >
         {children}
         {!children || (Array.isArray(children) && children.length === 0) ? (
-          <p className="m-auto text-sm text-neutral-500 dark:text-neutral-400">
+          <p className="col-span-full m-auto text-sm text-neutral-500 dark:text-neutral-400">
             Drag items here to rank them
           </p>
         ) : null}
@@ -150,6 +153,9 @@ function RankedZone({ children }: { children: React.ReactNode }) {
 }
 
 function UnrankedZone({ children }: { children: React.ReactNode }) {
+  const searchParams = useSearchParams();
+  const rankingformat = parseRankingFormatParam(searchParams.get("format"));
+
   const { ref, isDropTarget } = useDroppable({
     id: "unranked",
     type: "column",
@@ -159,7 +165,17 @@ function UnrankedZone({ children }: { children: React.ReactNode }) {
 
   return (
     <section className="flex w-full flex-col gap-4">
-      <h2 className="text-2xl font-bold text-subheading">Unranked</h2>
+      <div className="flex w-full items-center justify-between gap-4">
+        <h2 className="text-2xl font-bold text-subheading">Unranked</h2>
+        <ButtonLink
+          href={`/add-data?method=manual&rankingflow=ranking&rankingformat=${rankingformat}`}
+          variant="outlined"
+          size="small"
+          className="shrink-0"
+        >
+          Add More
+        </ButtonLink>
+      </div>
       <div
         ref={ref}
         className={[
@@ -171,7 +187,7 @@ function UnrankedZone({ children }: { children: React.ReactNode }) {
       >
         {children}
         {!children || (Array.isArray(children) && children.length === 0) ? (
-          <p className="m-auto text-sm text-neutral-500 dark:text-neutral-400">
+          <p className="col-span-full m-auto text-sm text-neutral-500 dark:text-neutral-400">
             All items have been ranked
           </p>
         ) : null}

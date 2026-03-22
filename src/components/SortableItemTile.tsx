@@ -33,7 +33,7 @@ export default function SortableItemTile({
       ref={ref}
       className={[
         "flex flex-col items-center gap-1 touch-none",
-        isDragSource ? "opacity-40" : "opacity-100",
+        isDragSource ? "cursor-grabbing opacity-40" : "cursor-grab opacity-100",
       ].join(" ")}
     >
       <ItemTile title={title} image={image} />
