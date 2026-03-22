@@ -9,7 +9,7 @@ const interLogo = Inter({
 
 export default function Header() {
   return (
-    <header className="flex items-center justify-between px-6 h-16 bg-mist-100 dark:bg-black border-b border-foreground/10">
+    <header className="flex items-center justify-between px-6 h-16 bg-mist-200 dark:bg-black border-b border-foreground/10">
       <div className="flex items-center gap-3">
         <Image
           src="/general/Logo.svg"
