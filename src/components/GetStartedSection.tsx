@@ -1,13 +1,11 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { dataMethods } from "../constants/dataMethods";
-import Button from "./Button";
+import ButtonLink from "./ButtonLink";
 import CardSelector from "./CardSelector";
 
 export default function GetStartedSection() {
-  const router = useRouter();
   const [selected, setSelected] = useState<string | null>(null);
 
   return (
@@ -22,16 +20,13 @@ export default function GetStartedSection() {
         value={selected}
         onChange={setSelected}
       />
-      <Button
+      <ButtonLink
         size="medium"
         disabled={selected === null}
-        onClick={() => {
-          if (selected === null) return;
-          router.push(`/add-data?method=${encodeURIComponent(selected)}`);
-        }}
+        href={`/add-data?method=${encodeURIComponent(selected ?? "")}`}
       >
         Get Started
-      </Button>
+      </ButtonLink>
     </div>
   );
 }
