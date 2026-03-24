@@ -16,7 +16,7 @@ export default function ItemTile({
   return (
     <div
       className={[
-        "group relative h-32 w-24 overflow-hidden rounded-lg",
+        "group relative h-28 w-21 overflow-hidden rounded-lg",
         className,
       ]
         .filter(Boolean)

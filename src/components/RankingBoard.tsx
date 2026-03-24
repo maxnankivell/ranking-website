@@ -357,7 +357,7 @@ function TierRow({ tier, titles, items, isLast }: TierRowProps) {
   return (
     <div
       className={[
-        "flex min-h-38 w-full items-stretch",
+        "flex min-h-34 w-full items-stretch",
         !isLast ? "border-b border-mist-200 dark:border-mist-800" : "",
       ].join(" ")}
     >
