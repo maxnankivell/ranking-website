@@ -16,10 +16,7 @@ import {
   type TierGroups,
 } from "../utils/rankingUtilities";
 import ButtonLink from "./ButtonLink";
-import {
-  buttonSizeClasses,
-  buttonVariantClasses,
-} from "./buttonStyles";
+import { buttonSizeClasses, buttonVariantClasses } from "./buttonStyles";
 import SortableItemTile from "./SortableItemTile";
 
 type RankingBoardProps = {
@@ -350,7 +347,7 @@ function TierRow({ tier, titles, items, isLast }: TierRowProps) {
   return (
     <div
       className={[
-        "flex min-h-20 w-full items-stretch",
+        "flex min-h-38 w-full items-stretch",
         !isLast ? "border-b border-mist-200 dark:border-mist-800" : "",
       ].join(" ")}
     >
