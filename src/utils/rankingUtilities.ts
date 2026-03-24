@@ -51,3 +51,21 @@ export function deriveTierGroups(
   });
   return result;
 }
+
+export function buildOrderedExportLines(items: RankingData[]): string[] {
+  const { ranked } = deriveGroups(items);
+  return ranked.map((title, i) => `${i + 1}. ${title}`);
+}
+
+export function buildTierExportLines(
+  tierGroups: TierGroups,
+  activeTiers: string[],
+): string[] {
+  const lines: string[] = [];
+  for (const tier of activeTiers) {
+    for (const title of tierGroups[tier] ?? []) {
+      lines.push(`${tier}. ${title}`);
+    }
+  }
+  return lines;
+}

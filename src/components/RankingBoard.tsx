@@ -17,6 +17,7 @@ import {
 } from "../utils/rankingUtilities";
 import ButtonLink from "./ButtonLink";
 import { buttonSizeClasses, buttonVariantClasses } from "./buttonStyles";
+import RankingExportControls from "./RankingExportControls";
 import SortableItemTile from "./SortableItemTile";
 
 type RankingBoardProps = {
@@ -250,7 +251,10 @@ function OrderedRankedZone({ children }: { children: React.ReactNode }) {
 
   return (
     <section className="flex w-full flex-col gap-4">
-      <h2 className="text-2xl font-bold text-subheading">Ranked</h2>
+      <div className="flex w-full flex-wrap items-center justify-between gap-4">
+        <h2 className="text-2xl font-bold text-subheading">Ranked</h2>
+        <RankingExportControls />
+      </div>
       <div
         ref={ref}
         className={[
@@ -301,7 +305,13 @@ function TierListRankedZone({
 }: TierListRankedZoneProps) {
   return (
     <section className="flex w-full flex-col gap-2">
-      <h2 className="text-2xl font-bold text-subheading">Tier List</h2>
+      <div className="flex w-full flex-wrap items-center justify-between gap-4">
+        <h2 className="text-2xl font-bold text-subheading">Tier List</h2>
+        <RankingExportControls
+          tierGroups={tierGroups}
+          activeTiers={activeTiers}
+        />
+      </div>
       <div className="flex w-full flex-col overflow-hidden rounded-lg border border-mist-200 dark:border-mist-800">
         {activeTiers.map((tier, i) => (
           <TierRow
