@@ -1,8 +1,8 @@
 "use client";
 
+import shuffle from "lodash/shuffle";
 import { Press_Start_2P } from "next/font/google";
 import Image from "next/image";
-import shuffle from "lodash/shuffle";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import Button from "../../components/Button";
@@ -116,12 +116,12 @@ export default function ComparisonsClient() {
         <ButtonLink href={addDataHref}>Add Data</ButtonLink>
       </div>
       <div className="flex flex-1 flex-col items-center justify-center gap-6 md:gap-8">
-        <div className="flex items-center gap-6 sm:gap-12 lg:gap-20">
+        <div className="flex gap-6 sm:gap-12 lg:gap-20">
           <ComparisonCard
             item={leftItem}
             onClick={() => handleChoice("left")}
           />
-          <div className="flex flex-col items-center gap-4 shrink-0">
+          <div className="flex flex-col self-center items-center gap-4 shrink-0">
             <span
               className={`${pressStart2P.className} text-2xl sm:text-4xl md:text-5xl lg:text-7xl text-heading select-none`}
             >
@@ -175,13 +175,13 @@ function ComparisonCard({
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center bg-neutral-200 p-4 dark:bg-neutral-800">
-            <span className="text-center text-sm font-bold text-body line-clamp-6">
+            <span className="text-center text-md sm:text-lg md:text-xl lg:text-2xl font-bold text-body line-clamp-6">
               {item.title}
             </span>
           </div>
         )}
       </div>
-      <span className="max-w-36 sm:max-w-52 lg:max-w-64 text-center text-sm font-bold text-heading line-clamp-3">
+      <span className="max-w-36 sm:max-w-52 lg:max-w-64 text-center text-sm sm:text-lg md:text-xl lg:text-2xl font-bold text-heading line-clamp-3">
         {item.title}
       </span>
     </button>
