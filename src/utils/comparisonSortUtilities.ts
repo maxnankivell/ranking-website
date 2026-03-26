@@ -16,6 +16,7 @@ export type SortState = {
   currentJob: MergeJob | null;
   completedGroups: Group[][];
   isDone: boolean;
+  comparisonsCompleted: number;
 };
 
 export function createJobs(chunks: Group[][]): {
@@ -47,6 +48,7 @@ export function initSortState(items: RankingData[]): SortState {
       currentJob: null,
       completedGroups: items.length === 1 ? [[[items[0]]]] : [],
       isDone: true,
+      comparisonsCompleted: 0,
     };
   }
   const chunks: Group[][] = items.map((item) => [[item]]);
@@ -56,6 +58,7 @@ export function initSortState(items: RankingData[]): SortState {
     pendingJobs: jobs.slice(1),
     completedGroups: passThrough,
     isDone: false,
+    comparisonsCompleted: 0,
   };
 }
 
@@ -64,6 +67,8 @@ export function advanceSortState(
   choice: "left" | "right" | "same",
 ): SortState {
   if (!prev.currentJob) return prev;
+
+  const comparisonsCompleted = prev.comparisonsCompleted + 1;
 
   const job: MergeJob = {
     left: prev.currentJob.left,
@@ -101,7 +106,7 @@ export function advanceSortState(
     job.leftPtr >= job.left.length && job.rightPtr >= job.right.length;
 
   if (!jobDone) {
-    return { ...prev, currentJob: job };
+    return { ...prev, currentJob: job, comparisonsCompleted };
   }
 
   const newCompleted = [...prev.completedGroups, job.merged];
@@ -112,6 +117,7 @@ export function advanceSortState(
       pendingJobs: prev.pendingJobs.slice(1),
       completedGroups: newCompleted,
       isDone: false,
+      comparisonsCompleted,
     };
   }
 
@@ -121,6 +127,7 @@ export function advanceSortState(
       pendingJobs: [],
       completedGroups: newCompleted,
       isDone: true,
+      comparisonsCompleted,
     };
   }
 
@@ -130,7 +137,49 @@ export function advanceSortState(
     pendingJobs: jobs.slice(1),
     completedGroups: passThrough,
     isDone: false,
+    comparisonsCompleted,
   };
+}
+
+/**
+ * Estimates remaining comparisons from the current sort state.
+ * Uses worst-case (L + R - 1) consistently: for the current round's jobs
+ * and for each simulated future round, giving an upper-bound estimate.
+ */
+export function estimateRemainingComparisons(state: SortState): number {
+  if (!state.currentJob || state.isDone) return 0;
+
+  let estimate = 0;
+
+  const leftRem = state.currentJob.left.length - state.currentJob.leftPtr;
+  const rightRem = state.currentJob.right.length - state.currentJob.rightPtr;
+
+  estimate += leftRem + rightRem - 1;
+
+  for (const job of state.pendingJobs) {
+    estimate += job.left.length + job.right.length - 1;
+  }
+
+  let sizes: number[] = [
+    ...state.completedGroups.map((chunk) => chunk.length),
+    leftRem + rightRem,
+    ...state.pendingJobs.map((job) => job.left.length + job.right.length),
+  ];
+
+  while (sizes.length > 1) {
+    const next: number[] = [];
+    for (let i = 0; i < sizes.length; i += 2) {
+      if (i + 1 < sizes.length) {
+        estimate += sizes[i] + sizes[i + 1] - 1;
+        next.push(sizes[i] + sizes[i + 1]);
+      } else {
+        next.push(sizes[i]);
+      }
+    }
+    sizes = next;
+  }
+
+  return estimate;
 }
 
 /**

@@ -11,6 +11,7 @@ import type { RankingData } from "../../types/RankingData";
 import {
   advanceSortState,
   assignTiers,
+  estimateRemainingComparisons,
   initSortState,
   type SortState,
 } from "../../utils/comparisonSortUtilities";
@@ -23,7 +24,8 @@ const pressStart2P = Press_Start_2P({
 });
 
 export default function ComparisonsClient() {
-  const { items, updateRanks, updateTiers, setActiveTierLetters } = useRankingData();
+  const { items, updateRanks, updateTiers, setActiveTierLetters } =
+    useRankingData();
 
   const searchParams = useSearchParams();
   const format = parseRankingFormatParam(searchParams.get("format"));
@@ -104,7 +106,7 @@ export default function ComparisonsClient() {
   }
 
   return (
-    <div className="flex flex-col flex-1 items-center justify-center">
+    <div className="flex flex-col flex-1 items-center justify-center gap-6 md:gap-8">
       <div className="flex items-center gap-6 sm:gap-12 lg:gap-20">
         <ComparisonCard item={leftItem} onClick={() => handleChoice("left")} />
         <div className="flex flex-col items-center gap-4 shrink-0">
@@ -128,6 +130,11 @@ export default function ComparisonsClient() {
           onClick={() => handleChoice("right")}
         />
       </div>
+      <p className="text-sm sm:text-xl md:text-2xl lg:text-3xl text-subheading text-center">
+        {sortState.comparisonsCompleted} completed
+        {" - "}
+        maximum of roughly {estimateRemainingComparisons(sortState)} remaining
+      </p>
     </div>
   );
 }
