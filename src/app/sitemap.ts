@@ -1,5 +1,8 @@
 import type { MetadataRoute } from "next";
 
+/** Required with `output: "export"` so the sitemap is emitted at build time. */
+export const dynamic = "force-static";
+
 const baseUrl =
   process.env.NEXT_PUBLIC_BASE_URL ??
   "https://objectiverankings.maxnankivell.com";

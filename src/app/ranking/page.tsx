@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import RankingBoard from "../../components/RankingBoard";
 
 export const metadata: Metadata = {
@@ -14,7 +15,9 @@ export default function Ranking() {
       <p className="max-w-3xl text-lg leading-8 mb-8 text-subheading">
         Drag items into the ranked area and reorder them to create your ranking.
       </p>
-      <RankingBoard className="mb-8" />
+      <Suspense fallback={null}>
+        <RankingBoard className="mb-8" />
+      </Suspense>
     </div>
   );
 }

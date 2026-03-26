@@ -15,8 +15,8 @@ import {
   type Groups,
   type TierGroups,
 } from "../utils/rankingUtilities";
+import Button from "./Button";
 import ButtonLink from "./ButtonLink";
-import { buttonSizeClasses, buttonVariantClasses } from "./buttonStyles";
 import RankingExportControls from "./RankingExportControls";
 import SortableItemTile from "./SortableItemTile";
 
@@ -280,7 +280,7 @@ function OrderedRankedZone({ children }: { children: React.ReactNode }) {
       <div
         ref={ref}
         className={[
-          "grid w-full min-h-40 grid-cols-[repeat(auto-fill,minmax(6rem,max-content))] place-content-center justify-items-center gap-3 rounded-lg p-4 transition-colors",
+          "grid w-full min-h-40 grid-cols-[repeat(auto-fill,minmax(5.25rem,max-content))] place-content-center justify-items-center gap-3 rounded-lg p-4 transition-colors",
           isDropTarget
             ? "bg-emerald-100 dark:bg-emerald-950"
             : "bg-mist-100 dark:bg-mist-950",
@@ -352,30 +352,19 @@ function TierListRankedZone({
       {(canAddTier || canRemoveTier) && (
         <div className="flex w-full flex-row items-center justify-between gap-2">
           {canAddTier && (
-            <button
-              type="button"
-              onClick={onAddTier}
-              className={[
-                "inline-flex cursor-pointer items-center justify-center gap-2 rounded-full font-bold transition-colors",
-                buttonVariantClasses.outlined.default,
-                buttonSizeClasses.small,
-              ].join(" ")}
-            >
+            <Button type="button" variant="outlined" size="small" onClick={onAddTier}>
               +
-            </button>
+            </Button>
           )}
           {canRemoveTier && (
-            <button
+            <Button
               type="button"
+              variant="outlined"
+              size="small"
               onClick={onRemoveBottomTier}
-              className={[
-                "inline-flex cursor-pointer items-center justify-center gap-2 rounded-full font-bold transition-colors",
-                buttonVariantClasses.outlined.default,
-                buttonSizeClasses.small,
-              ].join(" ")}
             >
               -
-            </button>
+            </Button>
           )}
         </div>
       )}
@@ -472,7 +461,7 @@ function UnrankedZone({ children }: { children: React.ReactNode }) {
       <div
         ref={ref}
         className={[
-          "grid w-full min-h-40 grid-cols-[repeat(auto-fill,minmax(6rem,max-content))] place-content-center justify-items-center gap-3 rounded-lg p-4 transition-colors",
+          "grid w-full min-h-40 grid-cols-[repeat(auto-fill,minmax(5.25rem,max-content))] place-content-center justify-items-center gap-3 rounded-lg p-4 transition-colors",
           isDropTarget
             ? "bg-emerald-100 dark:bg-emerald-950"
             : "bg-mist-100 dark:bg-mist-950",

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import AddDataMethodTabs from "../../components/AddDataMethodTabs";
 import AddDataRankingStart from "../../components/AddDataRankingStart";
 import ItemsPreview from "../../components/ItemsPreview";
@@ -17,8 +18,10 @@ export default function AddData() {
         Enter your data, then choose what kind of ranking to make and how to
         make it.
       </p>
-      <AddDataMethodTabs className="mb-8" />
-      <AddDataRankingStart className="mb-8" />
+      <Suspense fallback={null}>
+        <AddDataMethodTabs className="mb-8" />
+        <AddDataRankingStart className="mb-8" />
+      </Suspense>
       <ItemsPreview className="mb-8" />
     </div>
   );
