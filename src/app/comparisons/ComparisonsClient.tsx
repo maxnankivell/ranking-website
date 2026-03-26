@@ -29,6 +29,10 @@ export default function ComparisonsClient() {
 
   const searchParams = useSearchParams();
   const format = parseRankingFormatParam(searchParams.get("format"));
+  const addDataHref = `/add-data?${new URLSearchParams({
+    rankingflow: "comparison",
+    rankingformat: format,
+  }).toString()}`;
 
   const [sortState, setSortState] = useState<SortState | null>(null);
   const ranksUpdatedRef = useRef(false);
@@ -68,7 +72,7 @@ export default function ComparisonsClient() {
         <p className="text-lg text-subheading">
           No items yet. Add some data first.
         </p>
-        <ButtonLink href="/add-data">Add Data</ButtonLink>
+        <ButtonLink href={addDataHref}>Add Data</ButtonLink>
       </div>
     );
   }
@@ -106,35 +110,43 @@ export default function ComparisonsClient() {
   }
 
   return (
-    <div className="flex flex-col flex-1 items-center justify-center gap-6 md:gap-8">
-      <div className="flex items-center gap-6 sm:gap-12 lg:gap-20">
-        <ComparisonCard item={leftItem} onClick={() => handleChoice("left")} />
-        <div className="flex flex-col items-center gap-4 shrink-0">
-          <span
-            className={`${pressStart2P.className} text-2xl sm:text-4xl md:text-5xl lg:text-7xl text-heading select-none`}
-          >
-            VS
-          </span>
-          {format === "tierlist" && (
-            <Button
-              variant="outlined"
-              size="medium"
-              onClick={() => handleChoice("same")}
-            >
-              Same Tier
-            </Button>
-          )}
-        </div>
-        <ComparisonCard
-          item={rightItem}
-          onClick={() => handleChoice("right")}
-        />
+    <div className="flex w-full flex-1 flex-col">
+      <div className="flex w-full shrink-0">
+        <ButtonLink href={addDataHref}>Add Data</ButtonLink>
       </div>
-      <p className="text-sm sm:text-xl md:text-2xl lg:text-3xl text-subheading text-center">
-        {sortState.comparisonsCompleted} completed
-        {" - "}
-        maximum of roughly {estimateRemainingComparisons(sortState)} remaining
-      </p>
+      <div className="flex flex-1 flex-col items-center justify-center gap-6 md:gap-8">
+        <div className="flex items-center gap-6 sm:gap-12 lg:gap-20">
+          <ComparisonCard
+            item={leftItem}
+            onClick={() => handleChoice("left")}
+          />
+          <div className="flex flex-col items-center gap-4 shrink-0">
+            <span
+              className={`${pressStart2P.className} text-2xl sm:text-4xl md:text-5xl lg:text-7xl text-heading select-none`}
+            >
+              VS
+            </span>
+            {format === "tierlist" && (
+              <Button
+                variant="outlined"
+                size="medium"
+                onClick={() => handleChoice("same")}
+              >
+                Same Tier
+              </Button>
+            )}
+          </div>
+          <ComparisonCard
+            item={rightItem}
+            onClick={() => handleChoice("right")}
+          />
+        </div>
+        <p className="text-sm sm:text-xl md:text-2xl lg:text-3xl text-subheading text-center">
+          {sortState.comparisonsCompleted} completed
+          {" - "}
+          maximum of roughly {estimateRemainingComparisons(sortState)} remaining
+        </p>
+      </div>
     </div>
   );
 }
