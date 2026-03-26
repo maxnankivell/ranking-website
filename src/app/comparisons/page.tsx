@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import ComparisonsClient from "./ComparisonsClient";
 
 export const metadata: Metadata = {
@@ -8,7 +9,9 @@ export const metadata: Metadata = {
 export default function Comparisons() {
   return (
     <div className="flex flex-col flex-1 items-center justify-center">
-      <ComparisonsClient />
+      <Suspense fallback={null}>
+        <ComparisonsClient />
+      </Suspense>
     </div>
   );
 }
