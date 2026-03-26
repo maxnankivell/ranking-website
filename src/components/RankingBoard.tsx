@@ -15,8 +15,8 @@ import {
   type Groups,
   type TierGroups,
 } from "../utils/rankingUtilities";
+import Button from "./Button";
 import ButtonLink from "./ButtonLink";
-import { buttonSizeClasses, buttonVariantClasses } from "./buttonStyles";
 import RankingExportControls from "./RankingExportControls";
 import SortableItemTile from "./SortableItemTile";
 
@@ -352,30 +352,19 @@ function TierListRankedZone({
       {(canAddTier || canRemoveTier) && (
         <div className="flex w-full flex-row items-center justify-between gap-2">
           {canAddTier && (
-            <button
-              type="button"
-              onClick={onAddTier}
-              className={[
-                "inline-flex cursor-pointer items-center justify-center gap-2 rounded-full font-bold transition-colors",
-                buttonVariantClasses.outlined.default,
-                buttonSizeClasses.small,
-              ].join(" ")}
-            >
+            <Button type="button" variant="outlined" size="small" onClick={onAddTier}>
               +
-            </button>
+            </Button>
           )}
           {canRemoveTier && (
-            <button
+            <Button
               type="button"
+              variant="outlined"
+              size="small"
               onClick={onRemoveBottomTier}
-              className={[
-                "inline-flex cursor-pointer items-center justify-center gap-2 rounded-full font-bold transition-colors",
-                buttonVariantClasses.outlined.default,
-                buttonSizeClasses.small,
-              ].join(" ")}
             >
               -
-            </button>
+            </Button>
           )}
         </div>
       )}

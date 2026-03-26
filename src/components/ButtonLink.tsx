@@ -6,7 +6,7 @@ import {
   buttonVariantClasses,
   type ButtonSize,
   type ButtonVariant,
-} from "./buttonStyles";
+} from "./Button";
 
 export type ButtonLinkProps = ComponentProps<typeof Link> & {
   size?: ButtonSize;
